@@ -1,0 +1,88 @@
+:root {
+  --black: #000;
+  --light-grey: rgba(255, 255, 255, 0.87);
+  --middle-grey: rgb(178, 178, 178);
+  --dark-grey: #242424;
+  --grey: rgb(90, 90, 90);
+  --blue: #646cff;
+  --accent-blue: #535bf2;
+  --white: #fff;
+  --red: #d00000;
+  --green: rgb(66, 180, 4);
+
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400; */
+
+  /* color-scheme: light dark; */
+  font-family: 'Montserrat', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0;
+  color: var(--dark-grey);
+  background-color: var(--light-grey);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+input {
+  display: block;
+  color: var(--dark-grey);
+  padding: 8px;
+  background-color: inherit;
+  border: 1px solid var(--dark-grey);
+  border-radius: 4px;
+  transition: border 250ms ease-in-out;
+}
+input:focus,
+input:active {
+  border: 2px solid var(--accent-blue);
+  outline: none;
+}
+
+p,
+h1,
+h2,
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  font-weight: 500;
+  color: var(--blue);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--accent-blue);
+}
+
+/* body {
+  font-family: 'Montserrat', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  padding: 20px;
+  margin: 0;
+  color: var(--dark-grey);
+  background-color: var(--light-grey);
+} */
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
