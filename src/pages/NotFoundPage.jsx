@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-const NotFoundPage = props => {
-  return <div>NotFoundPage</div>;
+const NotFoundPage = ({ errMessage }) => {
+  return <div>{errMessage}</div>;
 };
 
 NotFoundPage.propTypes = {};

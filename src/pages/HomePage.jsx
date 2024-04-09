@@ -15,8 +15,6 @@ const HomePage = () => {
         setResults(res.results);
       } catch (error) {
         setError({ message: error.message });
-      } finally {
-        setError(false);
       }
     }
     fetchData();
@@ -29,7 +27,7 @@ const HomePage = () => {
         <ul>
           {results.map(({ id, title, ...restArgs }) => (
             <li key={id}>
-              <NavLink to="/movies/:movieId">
+              <NavLink to={`/movies/${id}`}>
                 <p>{title}</p>
               </NavLink>
             </li>
