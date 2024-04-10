@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
 import API from '../components/services/API';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const HomePage = () => {
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     async function fetchData() {
@@ -27,7 +28,7 @@ const HomePage = () => {
         <ul>
           {results.map(({ id, title, ...restArgs }) => (
             <li key={id}>
-              <NavLink to={`/movies/${id}`}>
+              <NavLink to={`/movies/${id}`} state={location}>
                 <p>{title}</p>
               </NavLink>
             </li>

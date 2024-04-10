@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 
 import API from '../components/services/API';
 import NotFoundPage from '../pages/NotFoundPage';
@@ -9,6 +9,8 @@ const MovieDetailsPage = () => {
   const [movie, setMovie] = useState({});
   const [error, setError] = useState(null);
   const { movieId } = useParams();
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     if (!movieId) return;
@@ -29,6 +31,7 @@ const MovieDetailsPage = () => {
     <div>
       {!error ? (
         <>
+          <Link to={location.state}>Go back</Link>
           <img
             src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}}`}
             alt=""

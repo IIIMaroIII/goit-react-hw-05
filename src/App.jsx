@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { NavLink, Routes, Route } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
@@ -13,8 +12,6 @@ import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
 function App() {
-  useEffect(() => {}, []);
-
   return (
     <>
       <header>

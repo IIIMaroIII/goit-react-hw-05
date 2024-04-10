@@ -2,8 +2,8 @@ import Axios from 'axios';
 
 // 'https://api.themoviedb.org/3/trending/movie/day?language=en-US';
 
-const tmdbOptions = Axios.create({
-  baseURL: 'https://api.themoviedb.org',
+const TMDBApi = Axios.create({
+  baseURL: 'https://api.themoviedb.org/3',
   headers: {
     Authorization:
       'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZmNjNGYwZjA5N2FjMzdkZDlhYmQ1ZTBmYTFmMTZjMCIsInN1YiI6IjY2MTMxOWFiNTkwMDg2MDBlMzdjMzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wHa7hrlSSamGXao1M4eihwwIHJBX5-Lny9KjpEcWSqg',
@@ -12,9 +12,10 @@ const tmdbOptions = Axios.create({
     language: 'en-US',
   },
 });
+
 const getTrendingMovies = async () => {
   try {
-    const response = await tmdbOptions.get('/3/trending/movie/day');
+    const response = await TMDBApi.get('/trending/movie/day');
     return response.data;
   } catch (err) {
     throw new Error(err.message);
@@ -22,16 +23,31 @@ const getTrendingMovies = async () => {
 };
 const getMovieById = async id => {
   try {
-    const response = await tmdbOptions.get(`/3/movie/${id}`);
+    const response = await TMDBApi.get(`/movie/${id}`);
     return response.data;
   } catch (err) {
     throw new Error(err.message);
   }
 };
 
+const getSearchMovie = async q => {
+  const params = {
+    query: q,
+  };
+  try {
+    const response = await TMDBApi.get(`/search/movie`, { params });
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+getSearchMovie('iron man');
+
 const API = {
   getTrendingMovies,
   getMovieById,
+  getSearchMovie,
 };
 
 export default API;
