@@ -1,19 +1,18 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import API from '../components/services/API';
 import { NavLink, useLocation } from 'react-router-dom';
 
 const HomePage = () => {
-  const [results, setResults] = useState(null);
+  const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
-  const location = useLocation();
 
   useEffect(() => {
     async function fetchData() {
       try {
         const res = await API.getTrendingMovies();
-        setResults(res.results);
+        setResults([...res.results]);
       } catch (error) {
         setError({ message: error.message });
       }
@@ -24,11 +23,11 @@ const HomePage = () => {
   return (
     <section>
       <h1>Trending Today</h1>
-      {results && (
+      {results.length > 0 && (
         <ul>
           {results.map(({ id, title, ...restArgs }) => (
             <li key={id}>
-              <NavLink to={`/movies/${id}`} state={location}>
+              <NavLink to={`/movies/${id}`}>
                 <p>{title}</p>
               </NavLink>
             </li>

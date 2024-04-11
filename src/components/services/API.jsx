@@ -42,12 +42,30 @@ const getSearchMovie = async q => {
   }
 };
 
-getSearchMovie('iron man');
+const getCredits = async id => {
+  try {
+    const response = await TMDBApi.get(`/movie/${id}/credits`);
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+const getReviews = async id => {
+  try {
+    const response = await TMDBApi.get(`/movie/${id}/reviews`);
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
 
 const API = {
   getTrendingMovies,
   getMovieById,
   getSearchMovie,
+  getCredits,
+  getReviews,
 };
 
 export default API;

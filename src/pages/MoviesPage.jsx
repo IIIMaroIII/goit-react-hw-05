@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import API from '../components/services/API';
@@ -9,7 +9,6 @@ const MoviesPage = () => {
   const [moviesList, setMoviesList] = useState(null);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
   const query = searchParams.get('query');
 
   const handleSearchSubmit = e => {
@@ -24,7 +23,6 @@ const MoviesPage = () => {
     async function fetchData() {
       try {
         const res = await API.getSearchMovie(query);
-
         setMoviesList({ ...res });
         setError(null);
       } catch (error) {
@@ -44,7 +42,7 @@ const MoviesPage = () => {
         <ul>
           {moviesList.results.map(({ id, title, ...restArgs }) => (
             <li key={id}>
-              <NavLink to={`/movies/${id}`} state={location}>
+              <NavLink to={`/movies/${id}`}>
                 <p>{title}</p>
               </NavLink>
             </li>
