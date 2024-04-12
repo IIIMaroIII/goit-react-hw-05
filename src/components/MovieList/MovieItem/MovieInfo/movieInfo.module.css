@@ -1,0 +1,15 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border-bottom: 2px solid rgba(163, 161, 161, 0.4);
+}
+.title {
+  font-size: 16px;
+  font-weight: bold;
+}
+.link {
+  text-decoration: underline;
+  color: var(--accent-blue);
+}

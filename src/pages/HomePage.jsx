@@ -1,43 +1,25 @@
-import PropTypes from 'prop-types';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 import API from '../components/services/API';
-import { NavLink, useLocation } from 'react-router-dom';
+import MovieList from '../components/MovieList/MovieList';
 
 const HomePage = () => {
-  const [results, setResults] = useState([]);
+  const [trendingList, setTrendingList] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await API.getTrendingMovies();
-        setResults([...res.results]);
+        const { results } = await API.getTrendingMovies();
+        setTrendingList(results);
       } catch (error) {
-        setError({ message: error.message });
+        setError(error.message);
       }
     }
     fetchData();
   }, []);
 
-  return (
-    <section>
-      <h1>Trending Today</h1>
-      {results.length > 0 && (
-        <ul>
-          {results.map(({ id, title, ...restArgs }) => (
-            <li key={id}>
-              <NavLink to={`/movies/${id}`}>
-                <p>{title}</p>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  );
+  return <section>{trendingList && <MovieList data={trendingList} />}</section>;
 };
-
-HomePage.propTypes = {};
 
 export default HomePage;

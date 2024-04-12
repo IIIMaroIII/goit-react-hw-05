@@ -1,26 +1,35 @@
-import PropTypes from 'prop-types';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useParams, useLocation, Link, Routes, Route } from 'react-router-dom';
 
 import API from '../components/services/API';
-import MovieCast from '../components/MovieCast/MovieCast';
-import MovieReviews from '../components/MovieReviews/MovieReviews';
+// import MovieCast from '../components/MovieCast/MovieCast';
+// import MovieReviews from '../components/MovieReviews/MovieReviews';
+import MovieItem from '../components/MovieList/MovieItem/MovieItem';
+import MovieInfo from '../components/MovieList/MovieItem/MovieInfo/MovieInfo';
 import NotFoundPage from '../pages/NotFoundPage';
+import Loader from '../components/Loader/Loader';
+
+const MovieCast = lazy(() => import('../components/MovieCast/MovieCast'));
+const MovieReviews = lazy(() =>
+  import('../components/MovieReviews/MovieReviews'),
+);
 
 const MovieDetailsPage = () => {
-  const [movie, setMovie] = useState({});
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const [error, setError] = useState(null);
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkRef = useRef(location?.state ?? '/movies');
 
   useEffect(() => {
     if (!movieId) return;
     async function fetchData() {
       try {
         const res = await API.getMovieById(movieId);
-        setMovie({ ...res });
+        setSelectedMovie(res);
         setError(null);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       }
     }
     fetchData();
@@ -28,30 +37,25 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      {!error ? (
+      {selectedMovie ? (
         <>
-          <Link>Go back</Link>
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}}`}
-            alt=""
-          />
-          <p>Title: {movie.title}</p>
-          <p>Popularity: {movie.popularity}</p>
-          <p>Release Date: {movie.release_date}</p>
-          <Link to={'cast'}>Cast</Link>
-          <Link to={'reviews'}>Reviews</Link>
-          <Routes>
-            <Route path="cast" element={<MovieCast />} />
-            <Route path="reviews" element={<MovieReviews />} />
-          </Routes>
+          <Link className="btn" to={backLinkRef.current}>
+            Go back
+          </Link>
+          <MovieItem data={selectedMovie} />
+          <MovieInfo />
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path="cast" element={<MovieCast />} />
+              <Route path="reviews" element={<MovieReviews />} />
+            </Routes>
+          </Suspense>
         </>
       ) : (
-        <NotFoundPage errMessage={error.message} />
+        <NotFoundPage errMessage={error} />
       )}
     </div>
   );
 };
-
-MovieDetailsPage.propTypes = {};
 
 export default MovieDetailsPage;

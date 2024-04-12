@@ -1,12 +1,19 @@
-.list {
+.wrapper {
   display: flex;
-  flex-direction: column;
   gap: 16px;
-  padding: 16px;
-
+  padding-bottom: 8px;
   border-bottom: 2px solid rgba(163, 161, 161, 0.4);
   margin-top: 8px;
   margin-bottom: 16px;
+}
+.img {
+  width: 320px;
+  height: 480px;
+  object-fit: cover;
+}
+.infoWrapper {
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 .title {
   font-size: 24px;
@@ -14,15 +21,15 @@
   margin-bottom: 16px;
 }
 
-/* .subtitle {
+.subtitle {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 16px;
-} */
+}
 .text {
   margin-bottom: 16px;
 }
-/* .genresWrapper {
+.genresWrapper {
   display: flex;
   gap: 8px;
-} */
+}

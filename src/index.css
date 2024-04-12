@@ -89,7 +89,7 @@ h1 {
 button,
 .btn {
   display: block;
-
+  width: fit-content;
   border-radius: 4px;
   border: 1px solid var(--black);
   padding: 4px;
@@ -102,8 +102,6 @@ button,
   color: var(--black);
   background-color: transparent;
   transition: all 250ms ease-in-out;
-  /* box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.487),
-    2px 6px 13px rgba(0, 0, 0, 0.646), 3px 9px 16px rgba(0, 0, 0, 0.855); */
 }
 .btn:hover,
 .btn:focus,
@@ -111,4 +109,24 @@ button:hover,
 button:focus {
   background-color: var(--accent-blue);
   color: var(--light-grey);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.487),
+    2px 6px 13px rgba(0, 0, 0, 0.646), 3px 9px 16px rgba(0, 0, 0, 0.855);
+}
+li {
+  transform-origin: left;
+  transform: scale(1);
+  transition: all 250ms ease-in-out;
+}
+a {
+  transition: all 250ms ease-in-out;
+  color: var(--dark-grey);
+}
+li:hover,
+link:focus {
+  transform: scale(1.05);
+}
+
+li:hover a,
+li:focus a {
+  color: var(--accent-blue);
 }

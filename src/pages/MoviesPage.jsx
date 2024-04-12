@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import API from '../components/services/API';
+import MovieList from '../components/MovieList/MovieList';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 const MoviesPage = () => {
-  const [moviesList, setMoviesList] = useState(null);
+  const [queryList, setQueryList] = useState(null);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
@@ -22,8 +22,9 @@ const MoviesPage = () => {
     if (!query) return;
     async function fetchData() {
       try {
-        const res = await API.getSearchMovie(query);
-        setMoviesList({ ...res });
+        const { results } = await API.getSearchMovie(query);
+
+        setQueryList(results);
         setError(null);
       } catch (error) {
         setError(error);
@@ -34,25 +35,10 @@ const MoviesPage = () => {
 
   return (
     <section>
-      <form onSubmit={handleSearchSubmit}>
-        <input type="text" name="query" />
-        <button type="submit">Search</button>
-      </form>
-      {moviesList && (
-        <ul>
-          {moviesList.results.map(({ id, title, ...restArgs }) => (
-            <li key={id}>
-              <NavLink to={`/movies/${id}`}>
-                <p>{title}</p>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      )}
+      <SearchBar onSearchSubmit={handleSearchSubmit} />
+      {queryList && <MovieList data={queryList} />}
     </section>
   );
 };
-
-MoviesPage.propTypes = {};
 
 export default MoviesPage;
